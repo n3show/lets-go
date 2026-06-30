@@ -302,8 +302,7 @@ a:focus-visible, button:focus-visible {
   white-space: pre;
   -webkit-overflow-scrolling: touch;
 }
-.term-line { display: block; margin-bottom: 10px; }
-.term-line:last-child { margin-bottom: 0; }
+.term-line { display: block; }
 .term-prompt {
   color: var(--accent);
   font-weight: 700;
