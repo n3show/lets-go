@@ -7,8 +7,7 @@
 <link rel="stylesheet" href="static/style.css">
 <script>
 (function () {
-  var saved = null;
-  try { saved = localStorage.getItem('lg-theme'); } catch (e) {}
+  var saved = localStorage.getItem('lg-theme');
   var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.documentElement.setAttribute('data-theme', theme);
 })();
@@ -116,7 +115,7 @@ func main() {
           
         
           
-            <pre class="terminal-block"><span class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">go run hello-world.go</span></span><span class="term-line term-out">hello world</span></pre>
+            <div class="prose">$ go run hello-world.go<br>hello world</div>
           
         
           
@@ -124,7 +123,7 @@ func main() {
           
         
           
-            <pre class="terminal-block"><span class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">go build hello-world.go</span></span><span class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">ls</span></span><span class="term-line term-out">hello-world	hello-world.go</span><span class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">./hello-world</span></span><span class="term-line term-out">hello world</span></pre>
+            <div class="prose">$ go build hello-world.go<br>$ ls<br>hello-world	hello-world.go<br>$ ./hello-world<br>hello world</div>
           
         
           

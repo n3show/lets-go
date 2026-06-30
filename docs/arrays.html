@@ -7,8 +7,7 @@
 <link rel="stylesheet" href="static/style.css">
 <script>
 (function () {
-  var saved = null;
-  try { saved = localStorage.getItem('lg-theme'); } catch (e) {}
+  var saved = localStorage.getItem('lg-theme');
   var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.documentElement.setAttribute('data-theme', theme);
 })();

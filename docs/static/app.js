@@ -51,7 +51,7 @@
       var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       var next = current === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
-      try { localStorage.setItem('lg-theme', next); } catch (e) {}
+      localStorage.setItem('lg-theme', next);
     });
   }
 })();
