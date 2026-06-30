@@ -12,10 +12,11 @@ import (
 	"strings"
 )
 
-// Segment is either a prose block (from // comments) or a code block.
+// Segment is a prose block, a code block, or a terminal/shell block.
 type Segment struct {
-	IsCode bool
-	Text   string // raw text (prose: plain; code: will be escaped+highlighted in template)
+	IsCode     bool
+	IsTerminal bool
+	Text       string // raw text (prose: plain; code: will be escaped+highlighted in template)
 }
 
 type Example struct {
@@ -26,9 +27,9 @@ type Example struct {
 }
 
 type NavItem struct {
-	Slug    string
-	Title   string
-	Active  bool
+	Slug   string
+	Title  string
+	Active bool
 }
 
 type PageData struct {
@@ -115,7 +116,8 @@ func parseExampleFile(path string) (*Example, error) {
 	}
 	flush()
 
-	// trim leading/trailing blank code lines within each code segment
+	// trim leading/trailing blank code lines within each code segment,
+	// and flag prose segments that are actually shell sessions (start with "$ ").
 	for i := range segments {
 		if segments[i].IsCode {
 			lines := strings.Split(segments[i].Text, "\n")
@@ -127,6 +129,8 @@ func parseExampleFile(path string) (*Example, error) {
 				end--
 			}
 			segments[i].Text = strings.Join(lines[start:end], "\n")
+		} else if strings.HasPrefix(strings.TrimSpace(segments[i].Text), "$ ") {
+			segments[i].IsTerminal = true
 		}
 	}
 
@@ -147,7 +151,8 @@ const layoutTmpl = `<!DOCTYPE html>
 <link rel="stylesheet" href="static/style.css">
 <script>
 (function () {
-  var saved = localStorage.getItem('lg-theme');
+  var saved = null;
+  try { saved = localStorage.getItem('lg-theme'); } catch (e) {}
   var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   document.documentElement.setAttribute('data-theme', theme);
 })();
@@ -202,6 +207,8 @@ const layoutTmpl = `<!DOCTYPE html>
         {{range .Example.Segments}}
           {{if .IsCode}}
             <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>{{.Text | safeHTML}}</code></pre>
+          {{else if .IsTerminal}}
+            <pre class="terminal-block">{{.Text | safeHTML}}</pre>
           {{else}}
             <div class="prose">{{.Text | safeHTML}}</div>
           {{end}}
@@ -232,6 +239,31 @@ func proseToHTML(text string) template.HTML {
 		b.WriteString(template.HTMLEscapeString(trimmed))
 		if i < len(lines)-1 {
 			b.WriteString("<br>")
+		}
+	}
+	return template.HTML(b.String())
+}
+
+func terminalToHTML(text string) template.HTML {
+	lines := strings.Split(text, "\n")
+	var b strings.Builder
+	for i, l := range lines {
+		trimmed := strings.TrimSpace(l)
+		if trimmed == "" {
+			continue
+		}
+		if strings.HasPrefix(trimmed, "$ ") {
+			rest := strings.TrimPrefix(trimmed, "$ ")
+			b.WriteString(`<span class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">`)
+			b.WriteString(template.HTMLEscapeString(rest))
+			b.WriteString(`</span></span>`)
+		} else {
+			b.WriteString(`<span class="term-line term-out">`)
+			b.WriteString(template.HTMLEscapeString(trimmed))
+			b.WriteString(`</span>`)
+		}
+		if i < len(lines)-1 {
+			b.WriteString("\n")
 		}
 	}
 	return template.HTML(b.String())
@@ -326,10 +358,12 @@ func writePage(tmpl *template.Template, path string, data PageData) {
 
 func writePageExample(tmpl *template.Template, path string, data PageData) {
 	for i, seg := range data.Example.Segments {
-		if !seg.IsCode {
-			data.Example.Segments[i].Text = string(proseToHTML(seg.Text))
-		} else {
+		if seg.IsCode {
 			data.Example.Segments[i].Text = template.HTMLEscapeString(seg.Text)
+		} else if seg.IsTerminal {
+			data.Example.Segments[i].Text = string(terminalToHTML(seg.Text))
+		} else {
+			data.Example.Segments[i].Text = string(proseToHTML(seg.Text))
 		}
 	}
 	f, err := os.Create(path)
