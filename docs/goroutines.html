@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goroutines · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class=""><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class=""><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class=""><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class=""><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class="is-active"><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class=""><a href="select.html">Select</a></li>
+      
+        <li class=""><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 21 of 25</p>
+          <h1>Goroutines</h1>
+        </header>
+        
+          
+            <div class="prose">A goroutine is a lightweight thread of execution.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;time&#34;
+)
+
+func f(from string) {
+	for i := 0; i &lt; 3; i++ {
+		fmt.Println(from, &#34;:&#34;, i)
+	}
+}
+
+func main() {</code></pre>
+          
+        
+          
+            <div class="prose">Suppose we have a function call f(s). Here&#39;s how<br>we&#39;d call that in the usual way, running it<br>synchronously.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	f(&#34;direct&#34;)</code></pre>
+          
+        
+          
+            <div class="prose">To invoke this function in a goroutine, use<br>go f(s). This new goroutine will execute<br>concurrently with the calling one.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	go f(&#34;goroutine&#34;)</code></pre>
+          
+        
+          
+            <div class="prose">You can also start a goroutine for an anonymous<br>function call.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	go func(msg string) {
+		fmt.Println(msg)
+	}(&#34;going&#34;)</code></pre>
+          
+        
+          
+            <div class="prose">Our two function calls are running asynchronously<br>in separate goroutines now, so execution falls<br>through to here. This Sleep is here to give the<br>goroutines time to finish.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	time.Sleep(time.Second)
+	fmt.Println(&#34;done&#34;)
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="errors.html">← Errors</a>
+          <a class="pager-next" href="channels.html">Channels →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

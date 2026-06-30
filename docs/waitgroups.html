@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waitgroups · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class=""><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class=""><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class=""><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class=""><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class=""><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class=""><a href="select.html">Select</a></li>
+      
+        <li class="is-active"><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 24 of 25</p>
+          <h1>Waitgroups</h1>
+        </header>
+        
+          
+            <div class="prose">To wait for multiple goroutines to finish, we can<br>use a wait group.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;sync&#34;
+	&#34;time&#34;
+)</code></pre>
+          
+        
+          
+            <div class="prose">This is the function we&#39;ll run in every goroutine.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>func worker(id int) {
+	fmt.Printf(&#34;Worker %d starting\n&#34;, id)
+	time.Sleep(time.Second)
+	fmt.Printf(&#34;Worker %d done\n&#34;, id)
+}
+
+func main() {</code></pre>
+          
+        
+          
+            <div class="prose">A WaitGroup waits for a collection of goroutines<br>to finish. The main goroutine calls Add to set<br>the number of goroutines to wait for.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	var wg sync.WaitGroup
+
+	for i := 1; i &lt;= 5; i++ {
+		wg.Add(1)</code></pre>
+          
+        
+          
+            <div class="prose">Wrap the worker call in a closure that makes<br>sure to tell the WaitGroup that this worker is<br>done.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>		go func() {
+			defer wg.Done()
+			worker(i)
+		}()
+	}</code></pre>
+          
+        
+          
+            <div class="prose">Block until the WaitGroup counter goes back to 0;<br>all the workers notified they&#39;re done.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	wg.Wait()
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="select.html">← Select</a>
+          <a class="pager-next" href="defer.html">Defer →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class="is-active"><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class=""><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class=""><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class=""><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class=""><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class=""><a href="select.html">Select</a></li>
+      
+        <li class=""><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 04 of 25</p>
+          <h1>For</h1>
+        </header>
+        
+          
+            <div class="prose">for is Go&#39;s only looping construct. Here are some of<br>the basic types of for loops.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import &#34;fmt&#34;
+
+func main() {</code></pre>
+          
+        
+          
+            <div class="prose">The most basic type, with a single condition.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	i := 1
+	for i &lt;= 3 {
+		fmt.Println(i)
+		i = i + 1
+	}</code></pre>
+          
+        
+          
+            <div class="prose">A classic initial/condition/after for loop.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for j := 0; j &lt; 3; j++ {
+		fmt.Println(j)
+	}</code></pre>
+          
+        
+          
+            <div class="prose">Another way of accomplishing the basic &#34;do this<br>N times&#34; iteration is range over an integer.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for i := range 3 {
+		fmt.Println(&#34;range&#34;, i)
+	}</code></pre>
+          
+        
+          
+            <div class="prose">for without a condition will loop repeatedly<br>until you break out of the loop or return from<br>the enclosing function.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for {
+		fmt.Println(&#34;loop&#34;)
+		break
+	}</code></pre>
+          
+        
+          
+            <div class="prose">You can also continue to the next iteration of<br>the loop.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for n := range 6 {
+		if n%2 == 0 {
+			continue
+		}
+		fmt.Println(n)
+	}
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="constants.html">← Constants</a>
+          <a class="pager-next" href="if-else.html">If Else →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

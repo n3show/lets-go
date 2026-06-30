@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Range · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class=""><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class=""><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class="is-active"><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class=""><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class=""><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class=""><a href="select.html">Select</a></li>
+      
+        <li class=""><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 10 of 25</p>
+          <h1>Range</h1>
+        </header>
+        
+          
+            <div class="prose">range iterates over elements in a variety of data<br>structures. Let&#39;s see how to use range with some of<br>the data structures we&#39;ve already learned.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import &#34;fmt&#34;
+
+func main() {</code></pre>
+          
+        
+          
+            <div class="prose">Here we use range to sum the numbers in a slice.<br>Arrays work like this too.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	nums := []int{2, 3, 4}
+	sum := 0
+	for _, num := range nums {
+		sum += num
+	}
+	fmt.Println(&#34;sum:&#34;, sum)</code></pre>
+          
+        
+          
+            <div class="prose">range on arrays and slices provides both the<br>index and value for each entry. Above we didn&#39;t<br>need the index, so we ignored it with the<br>blank identifier _.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for i, num := range nums {
+		if num == 3 {
+			fmt.Println(&#34;index:&#34;, i)
+		}
+	}</code></pre>
+          
+        
+          
+            <div class="prose">range on map iterates over key/value pairs.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	kvs := map[string]string{&#34;a&#34;: &#34;apple&#34;, &#34;b&#34;: &#34;banana&#34;}
+	for k, v := range kvs {
+		fmt.Printf(&#34;%s -&gt; %s\n&#34;, k, v)
+	}</code></pre>
+          
+        
+          
+            <div class="prose">range on strings iterates over Unicode code<br>points. The first value is the starting byte<br>index of the rune and the second the rune itself.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for i, c := range &#34;go&#34; {
+		fmt.Println(i, c)
+	}
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="maps.html">← Maps</a>
+          <a class="pager-next" href="functions.html">Functions →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

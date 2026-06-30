@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slices · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class=""><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class="is-active"><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class=""><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class=""><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class=""><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class=""><a href="select.html">Select</a></li>
+      
+        <li class=""><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 08 of 25</p>
+          <h1>Slices</h1>
+        </header>
+        
+          
+            <div class="prose">Slices are a key data type in Go, giving a more<br>powerful interface to sequences than arrays.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import &#34;fmt&#34;
+
+func main() {</code></pre>
+          
+        
+          
+            <div class="prose">Unlike arrays, slices are typed only by the<br>elements they contain, not the number of<br>elements. To create an empty slice with<br>non-zero length, use the builtin make.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	s := make([]string, 3)
+	fmt.Println(&#34;emp:&#34;, s)</code></pre>
+          
+        
+          
+            <div class="prose">We can set and get just like with arrays.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	s[0] = &#34;a&#34;
+	s[1] = &#34;b&#34;
+	s[2] = &#34;c&#34;
+	fmt.Println(&#34;set:&#34;, s)
+	fmt.Println(&#34;get:&#34;, s[2])</code></pre>
+          
+        
+          
+            <div class="prose">len returns the length of the slice as expected.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	fmt.Println(&#34;len:&#34;, len(s))</code></pre>
+          
+        
+          
+            <div class="prose">In addition to these basic operations, slices<br>support several more that make them richer than<br>arrays. One is the builtin append, which returns<br>a slice containing one or more new values.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	s = append(s, &#34;d&#34;)
+	s = append(s, &#34;e&#34;, &#34;f&#34;)
+	fmt.Println(&#34;apd:&#34;, s)</code></pre>
+          
+        
+          
+            <div class="prose">Slices can also be copy&#39;d.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	c := make([]string, len(s))
+	copy(c, s)
+	fmt.Println(&#34;cpy:&#34;, c)</code></pre>
+          
+        
+          
+            <div class="prose">Slices support a &#34;slice&#34; operator with the syntax<br>slice[low:high]. For example, this gets a slice<br>of the elements s[2], s[3], and s[4].</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	l := s[2:5]
+	fmt.Println(&#34;sl1:&#34;, l)</code></pre>
+          
+        
+          
+            <div class="prose">This slices up to (but excluding) s[5].</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	l = s[:5]
+	fmt.Println(&#34;sl2:&#34;, l)</code></pre>
+          
+        
+          
+            <div class="prose">And this slices up from (and including) s[2].</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	l = s[2:]
+	fmt.Println(&#34;sl3:&#34;, l)</code></pre>
+          
+        
+          
+            <div class="prose">We can declare and initialize a variable for<br>slice in a single line as well.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	t := []string{&#34;g&#34;, &#34;h&#34;, &#34;i&#34;}
+	fmt.Println(&#34;dcl:&#34;, t)</code></pre>
+          
+        
+          
+            <div class="prose">Slices can be composed into multi-dimensional<br>data structures. The length of the inner slices<br>can vary, unlike with multi-dimensional arrays.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	twoD := make([][]int, 3)
+	for i := 0; i &lt; 3; i++ {
+		innerLen := i + 1
+		twoD[i] = make([]int, innerLen)
+		for j := 0; j &lt; innerLen; j++ {
+			twoD[i][j] = i + j
+		}
+	}
+	fmt.Println(&#34;2d: &#34;, twoD)
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="arrays.html">← Arrays</a>
+          <a class="pager-next" href="maps.html">Maps →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

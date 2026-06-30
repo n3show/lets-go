@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class=""><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class=""><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class=""><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class=""><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class=""><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class="is-active"><a href="select.html">Select</a></li>
+      
+        <li class=""><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 23 of 25</p>
+          <h1>Select</h1>
+        </header>
+        
+          
+            <div class="prose">Go&#39;s select lets you wait on multiple channel<br>operations. Combining goroutines and channels with<br>select is a powerful feature of Go.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;time&#34;
+)
+
+func main() {</code></pre>
+          
+        
+          
+            <div class="prose">For our example we&#39;ll select across two channels.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	c1 := make(chan string)
+	c2 := make(chan string)</code></pre>
+          
+        
+          
+            <div class="prose">Each channel will receive a value after some<br>amount of time, to simulate e.g. blocking RPC<br>operations executing in concurrent goroutines.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	go func() {
+		time.Sleep(1 * time.Second)
+		c1 &lt;- &#34;one&#34;
+	}()
+	go func() {
+		time.Sleep(2 * time.Second)
+		c2 &lt;- &#34;two&#34;
+	}()</code></pre>
+          
+        
+          
+            <div class="prose">We&#39;ll use select to await both of these values<br>simultaneously, printing each one as it arrives.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	for i := 0; i &lt; 2; i++ {
+		select {
+		case msg1 := &lt;-c1:
+			fmt.Println(&#34;received&#34;, msg1)
+		case msg2 := &lt;-c2:
+			fmt.Println(&#34;received&#34;, msg2)
+		}
+	}
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="channels.html">← Channels</a>
+          <a class="pager-next" href="waitgroups.html">Waitgroups →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>

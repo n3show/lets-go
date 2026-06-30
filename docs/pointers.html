@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pointers · Let's Go</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <span class="brand-mark">&gt;_</span>
+      <span class="brand-text">Let's Go</span>
+    </a>
+    <span class="topbar-count">25 examples</span>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <ol class="toc">
+      
+        <li class=""><a href="hello-world.html">Hello World</a></li>
+      
+        <li class=""><a href="variables.html">Variables</a></li>
+      
+        <li class=""><a href="constants.html">Constants</a></li>
+      
+        <li class=""><a href="for.html">For</a></li>
+      
+        <li class=""><a href="if-else.html">If Else</a></li>
+      
+        <li class=""><a href="switch.html">Switch</a></li>
+      
+        <li class=""><a href="arrays.html">Arrays</a></li>
+      
+        <li class=""><a href="slices.html">Slices</a></li>
+      
+        <li class=""><a href="maps.html">Maps</a></li>
+      
+        <li class=""><a href="range.html">Range</a></li>
+      
+        <li class=""><a href="functions.html">Functions</a></li>
+      
+        <li class=""><a href="multiple-return-values.html">Multiple Return Values</a></li>
+      
+        <li class=""><a href="variadic-functions.html">Variadic Functions</a></li>
+      
+        <li class=""><a href="closures.html">Closures</a></li>
+      
+        <li class=""><a href="recursion.html">Recursion</a></li>
+      
+        <li class="is-active"><a href="pointers.html">Pointers</a></li>
+      
+        <li class=""><a href="structs.html">Structs</a></li>
+      
+        <li class=""><a href="methods.html">Methods</a></li>
+      
+        <li class=""><a href="interfaces.html">Interfaces</a></li>
+      
+        <li class=""><a href="errors.html">Errors</a></li>
+      
+        <li class=""><a href="goroutines.html">Goroutines</a></li>
+      
+        <li class=""><a href="channels.html">Channels</a></li>
+      
+        <li class=""><a href="select.html">Select</a></li>
+      
+        <li class=""><a href="waitgroups.html">Waitgroups</a></li>
+      
+        <li class=""><a href="defer.html">Defer</a></li>
+      
+      </ol>
+    </nav>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="content">
+    
+      <article class="example">
+        <header class="example-head">
+          <p class="eyebrow">Example 16 of 25</p>
+          <h1>Pointers</h1>
+        </header>
+        
+          
+            <div class="prose">Go supports pointers, allowing you to pass references<br>to values and records within your program.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>package main
+
+import &#34;fmt&#34;</code></pre>
+          
+        
+          
+            <div class="prose">We&#39;ll show how pointers work in contrast to values<br>with 2 functions: zeroval and zeroptr. zeroval has an<br>int parameter, so arguments will be passed to it by<br>value. zeroval will get a copy of ival distinct from<br>the one in the calling function.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>func zeroval(ival int) {
+	ival = 0
+}</code></pre>
+          
+        
+          
+            <div class="prose">zeroptr in contrast has an *int parameter, meaning<br>that it takes an int pointer. The *iptr code in the<br>function body then dereferences the pointer from its<br>memory address to the current value at that address.<br>Assigning a value to a dereferenced pointer changes<br>the value at the referenced address.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>func zeroptr(iptr *int) {
+	*iptr = 0
+}
+
+func main() {
+	i := 1
+	fmt.Println(&#34;initial:&#34;, i)
+
+	zeroval(i)
+	fmt.Println(&#34;zeroval:&#34;, i)</code></pre>
+          
+        
+          
+            <div class="prose">The &amp;i syntax gives the memory address of i,<br>i.e. a pointer to i.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	zeroptr(&amp;i)
+	fmt.Println(&#34;zeroptr:&#34;, i)</code></pre>
+          
+        
+          
+            <div class="prose">Pointers can be printed too.</div>
+          
+        
+          
+            <pre class="code-block"><button class="copy-btn" type="button">Copy</button><code>	fmt.Println(&#34;pointer:&#34;, &amp;i)
+}</code></pre>
+          
+        
+        <nav class="pager">
+          <a class="pager-prev" href="recursion.html">← Recursion</a>
+          <a class="pager-next" href="structs.html">Structs →</a>
+        </nav>
+      </article>
+    
+    </main>
+  </div>
+</div>
+<script src="static/app.js"></script>
+</body>
+</html>
